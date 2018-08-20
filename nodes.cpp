@@ -165,8 +165,31 @@ void dfs(Node *root,int &n,int num){
 	}
 	n=max(n,count);
 }
-void mergeSet(vector<Node*> &first, vector<Node*> &second){
+void mergeSet(vector<Node*> &first, vector<Node*> &second,Owner *currOwner){
 	//merge sets of same owner
+	int i=0,j=0;
+	while(i<first.size() && j<second.size()){
+		while(i<first.size() && first[i]->owner!=currOwner){
+			i++;
+		}
+		while(j<second.size() && second[j]->owner!=currOwner){
+			j++;
+		}
+		int n1=-1,n2=-1;
+		dfs(second[j],n2,0);
+		dfs(first[i],n1,0);
+		if(n1>n2){
+			second[j]->refNodeId=first[i];
+			first[i].refChildNodeId.push_back(second[j]);
+			second.erase(second.begin()+j);
+			i++;
+		}else{
+			first[i]->refNodeId=second[j];
+			second[j].refChildNodeId.push_back(first[i]);
+			second.erase(second.begin()+j);
+			j++;
+		}
+	}
 	
 }
 int main(){
