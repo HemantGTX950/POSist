@@ -180,12 +180,12 @@ void mergeSet(vector<Node*> &first, vector<Node*> &second,Owner *currOwner){
 		dfs(first[i],n1,0);
 		if(n1>n2){
 			second[j]->refNodeId=first[i];
-			first[i].refChildNodeId.push_back(second[j]);
+			first[i]->refChildNodeId.push_back(second[j]);
 			second.erase(second.begin()+j);
 			i++;
 		}else{
 			first[i]->refNodeId=second[j];
-			second[j].refChildNodeId.push_back(first[i]);
+			second[j]->refChildNodeId.push_back(first[i]);
 			second.erase(second.begin()+j);
 			j++;
 		}
@@ -320,7 +320,7 @@ int main(){
 			cout<<"enter 1st and 2nd set number"<<endl;
 			int f,s;
 			cin>>f>>s;
-			mergeSet(set[f],set[s]);
+			mergeSet(set[f],set[s],currOwner);
 			
 		}else if(q==10){
 			//log out
