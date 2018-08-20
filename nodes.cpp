@@ -157,6 +157,7 @@ void query7(vector<Node*> v){
 int main(){
 	St:
     int num=0,nOwners=0;
+    vector<vector<Node*> > set;
     vector<Node*> v;
     vector<Owner*> owners;
     int q;
@@ -204,32 +205,41 @@ int main(){
 		cin>>q;
 		if(q==1){
 			//push a hardcoded first node 
+			vector<Node*> v;
 			v.push_back(getNode(num++,currOwner));
+			set.push_back(v);
 		}else if(q==2){
 			//push a set of first nodes
 			int n=0;
 			cout<<"Enter number of nodes: ";
 			cin>>n;
+			vector<Node*> v(1);
 			for(int i=0;i<n;i++){
-				v.push_back(getNode(num++,currOwner));	
+				v[0]=(getNode(num++,currOwner));	
+				set.push_back(v);
 			}
 			cout<<"nodes pushed"<<endl;
 		}else if(q==3){
-			//adding node to any node
+			//adding node to any set
 			Node *np=getNode(num++,currOwner);
 			v.push_back(np);
-			cout<<"Enter NodeId: ";
-			int id;
-			cin>>id;
-			query3(np,id,v);
+			cout<<"Enter setNo: ";
+			int setNo;
+			cin>>setNo;
+			set[setNo].push_back(np);
+			
 		}else if(q==4){
 			//verify owner
-			bool f=query4(owners,currOwner,v);
-			if(f){
-				cout<<"you are the owner!"<<endl;
-			}else{
-				cout<<"you are not the owner"<<endl;
-			}	
+			bool f=false;
+			for(int i=0;i<set.size();i++){
+				f=query4(owners,currOwner,set[i]);
+				if(f){
+					cout<<"you are the owner!"<<endl;
+				}		
+			}
+			if(!f){			
+				cout<<"you are not owner"<<endl;
+			}
 		}else if(q==5){
 			//break up a node 
 			query5(owners,currOwner,v);
