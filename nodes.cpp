@@ -39,6 +39,7 @@ void query3(Node *child,int id,vector<Node*> &v){
 		if(v[i]->nodeId==id){
 			v[i]->refChildNodeId.push_back(child);
 			v[i]->childNodeId.push_back(child->nodeId);
+			child->refNodeId=v[i];
 			break;
 		}	
 	}
@@ -150,6 +151,9 @@ void query6(vector<Owner*> &owners,Owner *currOwner, vector<Node*> &v){
 		cout<<"node not found"<<endl;
 	}
 }
+void query7(vector<Node*> v){
+	
+}
 int main(){
 	St:
     int num=0,nOwners=0;
@@ -237,14 +241,18 @@ int main(){
 			
 		}else if(q==7){
 			//longest chain of main node
+			query7(v);
 			
 		}else if(q==8){
 			//longest chain of sub node
 			
 		}else if(q==9){
+			//merge nodes
 			
 		}else if(q==10){
-			
+			//log out
+			currOwner=NULL;
+			goto St;
 		}else {
 			
 		}
