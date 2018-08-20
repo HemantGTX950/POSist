@@ -154,6 +154,16 @@ void query6(vector<Owner*> &owners,Owner *currOwner, vector<Node*> &v){
 void query7(vector<Node*> v){
 	
 }
+int dfs(Node *root){
+	if(root==NULL){
+		return 0;
+	}
+	return 0;
+}
+void mergeSet(Vector<Node*> &first, vector<Node*> &second){
+	//merge sets of same owner
+	
+}
 int main(){
 	St:
     int num=0,nOwners=0;
@@ -251,20 +261,45 @@ int main(){
 			
 		}else if(q==7){
 			//longest chain of main node
-			query7(v);
+			int mx=-1;
+			for(int i=0;i<set.size();i++){
+				
+				mx=max(mx,dfs(set[i][0]));	
+			}
+			cout<<"max chain="<<mx<<endl;
 			
 		}else if(q==8){
 			//longest chain of sub node
-			
+			cout<<"enter node id"<<endl;
+			int id;
+			cin>>id;
+			int ans=-1;
+			bool f=false;
+			for(int i=0;i<set.size();i++){
+				for(j=0;j<set[i].size();j++){
+					if(set[i][j].nodeId==id){
+						f=true;
+						ans=dfs(set[i][j]);
+						break;
+					}
+				}
+				if(f){
+					break;	
+				}
+			}
 		}else if(q==9){
 			//merge nodes
+			cout<<"enter 1st and 2nd set number"<<endl;
+			int f,s;
+			cin>>f>>s;
+			mergeSet(set[f],set[s]);
 			
 		}else if(q==10){
 			//log out
 			currOwner=NULL;
 			goto St;
 		}else {
-			
+			break;
 		}
 	}
     return 0;
