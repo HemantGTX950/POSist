@@ -154,13 +154,18 @@ void query6(vector<Owner*> &owners,Owner *currOwner, vector<Node*> &v){
 void query7(vector<Node*> v){
 	
 }
-int dfs(Node *root){
+void dfs(Node *root,int &n,int num){
 	if(root==NULL){
-		return 0;
+		n=max(n,num);
 	}
-	return 0;
+	int count=num+1;
+	vector<Node*> child=root->refChildNodeId;
+	for(int i=0;i<child.size();i++){
+		dfs(child[i],n,num+1);
+	}
+	n=max(n,count);
 }
-void mergeSet(Vector<Node*> &first, vector<Node*> &second){
+void mergeSet(vector<Node*> &first, vector<Node*> &second){
 	//merge sets of same owner
 	
 }
@@ -264,7 +269,7 @@ int main(){
 			int mx=-1;
 			for(int i=0;i<set.size();i++){
 				
-				mx=max(mx,dfs(set[i][0]));	
+				dfs(set[i][0],mx,0);	
 			}
 			cout<<"max chain="<<mx<<endl;
 			
@@ -276,10 +281,10 @@ int main(){
 			int ans=-1;
 			bool f=false;
 			for(int i=0;i<set.size();i++){
-				for(j=0;j<set[i].size();j++){
-					if(set[i][j].nodeId==id){
+				for(int j=0;j<set[i].size();j++){
+					if(set[i][j]->nodeId==id){
 						f=true;
-						ans=dfs(set[i][j]);
+						dfs(set[i][j],ans,0);
 						break;
 					}
 				}
